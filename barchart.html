@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <title> D3 Test </title>
+    <script type="text/javascript" src="bower_components/d3/d3.js"></script>
+
+    <style type="text/css">
+        svg.rect {
+            background-color: teal;
+        }
+
+    </style>
+
+</head>
+
+<body>
+    <script type="text/javascript">
+        var scale = 20;
+        var w = 500;
+        var h = 100;
+
+        var svg = d3.select("body")
+            .append("svg")
+            .attr("width", w)
+            .attr("height", h);
+
+
+        var dataset = [];
+        for (var i = 0; i < 20; i++) {
+            var j = Math.random() * 20;
+            dataset.push(j);
+        };
+
+
+        var rects = svg.selectAll("rect")
+            .data(dataset)
+            .enter()
+            .append("rect")
+            .attr("x", function(d, i) {
+                return i * (w/dataset.length);
+            })
+            .attr("y", 0)
+            .attr("width", 20)
+            .attr("height", function(d) {
+                return d;
+            });
+
+    </script>
+
+</body>
+
+</html>
