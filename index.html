@@ -1,59 +1,93 @@
 <!DOCTYPE html>
 <html lang="en">
-    <head>
-    <meta charset = "utf-8">
-    <title> D3 Test </title>
-    <script type="text/javascript" src="d3/d3.js"></script>
-        <style type="text/css">
-		
-			div.bar {
-				display: inline-block;
-				width: 20px;
-				height: 75px;
-				background-color: teal;
-                margin-right:2px;
-			}
-		
-		</style>
-        
-    </head>
-<body>
-<script type="text/javascript">
-    
-    var dataset = [];
-    for (var i=0; i<30; i++){
-        var j=Math.random()*30;
-       dataset.push(j);
-    };
-    
-     
-//        var dataset = [ 5, 10, 15, 20, 25 ];
-    
-//    d3.select("body").selectAll("p")
-//        .data(dataset)
-//        .enter()
-//        .append("p")
-//        .text(function(d) { return d; })
-//        .style("color", function(d){
-//            if(d>15){
-//                return("red");
-//            }
-//        else{
-//            return("blue")}
-//            });
-    
-       d3.select("body").selectAll("div")
-        .data(dataset)
-        .enter()
-        .append("div")
-        .attr("class", "bar")
-        .style("height", function(d){
-           var barheight= d*5;
-           return barheight + "px";
-          });
 
-    
+<head>
+    <meta charset="utf-8">
+    <title> D3 Test </title>
+    <script type="text/javascript" src="bower_components/d3/d3.js"></script>
+    <style type="text/css">
+        div.bar {
+            display: inline-block;
+            width: 20px;
+            height: 75px;
+            background-color: teal;
+            margin-right: 2px;
+        }
+
+    </style>
+
+</head>
+
+<body>
+    <script type="text/javascript">
+       
+        var scale = 20;
+        var w = 2000;
+        var h = 50;
+
+        var svg = d3.select("body")
+            .append("svg")
+            .attr("width", w)
+            .attr("height", h);
+
+
+        var dataset = [];
+        for (var i = 0; i < 20; i++) {
+            var j = Math.random() * 20;
+            dataset.push(j);
+        };
+
+
+        //        var dataset = [ 5, 10, 15, 20, 25 ];
+
+        //    d3.select("body").selectAll("p")
+        //        .data(dataset)
+        //        .enter()
+        //        .append("p")
+        //        .text(function(d) { return d; })
+        //        .style("color", function(d){
+        //            if(d>15){
+        //                return("red");
+        //            }
+        //        else{
+        //            return("blue")}
+        //            });
+
+        //       d3.select("body").selectAll("div")
+        //        .data(dataset)
+        //        .enter()
+        //        .append("div")
+        //        .attr("class", "bar")
+        //        .style("height", function(d){
+        //           var barheight= d*5;
+        //           return barheight + "px";
+        //          });
+
+
+        var circles = svg.selectAll("circle")
+            .data(dataset)
+            .enter()
+            .append("circle");
+
+        circles.attr("cx", function(d, i) {
+                return ((i +1) * (2 * scale) );
+            })
+            .attr("cy", h / 2)
+            .attr("r", function(d) {
+                return d;
+            })
+        .attr("fill", "orange")
+            .attr("stroke", "yellow")
+            .attr("stroke-width", function(d) {
+                return d/2;
+            })
+        .attr("opacity", function(d) {
+                return d /20;
+            }) 
+        ;
+
     </script>
 
 </body>
+
 </html>
